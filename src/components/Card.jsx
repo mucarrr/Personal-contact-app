@@ -2,7 +2,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { HiPencilSquare } from "react-icons/hi2";
 import { FaPhoneFlip } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
-function Card({contact, handleDelete}){
+function Card({contact, handleDelete, handleEdit, setIsModalOpen }){
     const [name, surname]=contact.name.split(" ");
     console.log(name);
     console.log(surname);
@@ -11,8 +11,8 @@ function Card({contact, handleDelete}){
     
     return(
         <div className="card">
-            <div className="buttons">
-            <button className="update"><HiPencilSquare /></button>
+            <div onClick={()=> handleEdit(contact)} className="buttons">
+            <button onClick={() => setIsModalOpen(true)} className="update"><HiPencilSquare /></button>
             <button onClick={()=> handleDelete(contact.id)} className="delete"><RiDeleteBin5Line /></button>
                
             </div>

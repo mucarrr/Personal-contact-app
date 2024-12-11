@@ -7,10 +7,11 @@ import { IoIosPersonAdd } from "react-icons/io";
 import Card from "./components/Card.jsx";
 import Modal from "./components/Modal.jsx";
 
-axios.defaults.baseURL = "http://localhost:4000/";
+axios.defaults.baseURL = "http://localhost:3000/";
 function App() { 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [contacts, setContacts ] = useState([])
+  const [contacts, setContacts ] = useState([]);
+  const [editItem, setEditItem ] = useState(null);
   
  useEffect(()=>{
   axios.get("/contacts").then((res)=> setContacts(res.data));
@@ -18,6 +19,7 @@ function App() {
  const handleSubmit = (event) => {
    
    event.preventDefault();
+   
    const text = event.target.search.value;
    const params = {
     q: text,
@@ -31,14 +33,19 @@ function App() {
     axios.delete(`/contacts/${id}`).then(()=>{
       const updated = contacts.filter((contact)=>contact.id !== id)
       setContacts(updated);
-    })
+    }).catch((err)=>alert(`Error: ${err}`));
+    
   }
+ }
+ const handleEdit =(contact)=>{
+   setEditItem(contact);
+   
  }
  
 return(
   <div className="app">
     <header>
-      <h1>Contacts</h1>
+      <h1>Personal Contacts</h1>
       <div>
         <form onSubmit={handleSubmit}>
           <button type="submit"><RiSearchLine /></button>
@@ -54,10 +61,10 @@ return(
     </header>
 
     <main>
-    {contacts.map((contact)=>< Card key={contact.id} contact={contact} handleDelete={handleDelete} />)}
+    {contacts.map((contact)=>< Card key={contact.id} contact={contact} handleDelete={handleDelete} handleEdit={handleEdit} setIsModalOpen={setIsModalOpen} />)}
     </main>
     
-   <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setContacts={setContacts} />
+   <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setContacts={setContacts} editItem={editItem} setEditItem={setEditItem}/>
   </div>
 );
    

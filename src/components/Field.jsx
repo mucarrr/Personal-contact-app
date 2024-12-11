@@ -1,8 +1,8 @@
-function Field ( {label, name} ){
+function Field ( {label, name, value} ){
     return(
         <div className="field">
         <label>{label}</label>
-        <input type="text" name={name} />
+        <input defaultValue={value} type="text" name={name} />
     </div>
     )
 }
