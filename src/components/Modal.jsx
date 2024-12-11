@@ -2,7 +2,13 @@ import { IoClose } from "react-icons/io5";
 import Field from "./Field.jsx";
 import axios from "axios";
 
-function Modal({ isModalOpen, setIsModalOpen, setContacts, editItem, setEditItem }) {
+function Modal({
+  isModalOpen,
+  setIsModalOpen,
+  setContacts,
+  editItem,
+  setEditItem,
+}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("form gonderildi");
@@ -10,21 +16,28 @@ function Modal({ isModalOpen, setIsModalOpen, setContacts, editItem, setEditItem
     const formData = new FormData(event.target);
     console.log(formData);
     const newContact = Object.fromEntries(formData.entries());
-    
-    if(!editItem){
-      axios
-      .post("/contacts", newContact)
-      .then(() => setContacts((contacts) => [...contacts, newContact]))
-      .catch((err) => {
-        alert("islem no");
-        console.log(`error: ${err}`);
-      });
-    }else{
-     axios.put(`/contacts/${editItem.id}`, newContact).then(()=> {setContacts((contacts)=>contacts.map((contact)=>contact.id===editItem.id ? newContact : contact)
-    )}).then((err)=>{console.log(err);
-    })
-    
-    } 
+
+    if (!editItem) {
+      const response = axios
+        .post("/contacts", newContact)
+        .then(() => setContacts((contacts) => [...contacts, response.data]))
+        .catch((err) => {
+          console.log(`error: ${err}`);
+        });
+    } else {
+      const response = axios
+        .put(`/contacts/${editItem.id}`, newContact)
+        .then(() => {
+          setContacts((contacts) =>
+            contacts.map((contact) =>
+              contact.id === editItem.id ? response.data : contact
+            )
+          );
+        })
+        .then((err) => {
+          console.log(err);
+        });
+    }
     setEditItem(null);
     setIsModalOpen(() => false);
   };
@@ -40,13 +53,25 @@ function Modal({ isModalOpen, setIsModalOpen, setContacts, editItem, setEditItem
             </button>
           </div>
           <form onSubmit={handleSubmit}>
-            <Field value={editItem ?.name} label="Name Surname" name="name" />
-            <Field value={editItem ?.position} label="Position" name="position" />
-            <Field value={editItem ?.company} label="Company" name="company" />
-            <Field value={editItem ?.phone} label="Phone" name="phone" />
-            <Field value={editItem ?.email} label="E-mail" name="email" />
+            <Field value={editItem?.name} label="Name Surname" name="name" />
+            <Field
+              value={editItem?.position}
+              label="Position"
+              name="position"
+            />
+            <Field value={editItem?.company} label="Company" name="company" />
+            <Field value={editItem?.phone} label="Phone" name="phone" />
+            <Field value={editItem?.email} label="E-mail" name="email" />
             <div className="buttons">
-              <button onClick={() => {setIsModalOpen(false); setEditItem(null);}} type="button">Cancel</button>
+              <button
+                onClick={() => {
+                  setIsModalOpen(false);
+                  setEditItem(null);
+                }}
+                type="button"
+              >
+                Cancel
+              </button>
               <button type="submit">{editItem ? "Update" : "Send"}</button>
             </div>
           </form>

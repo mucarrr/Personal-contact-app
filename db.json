@@ -1,15 +1,7 @@
 {
   "contacts": [
     {
-      "name": "Michael Brown",
-      "position": "Data Analyst",
-      "company": "DataSolve",
-      "phone": "+1-567-890-1234",
-      "email": "michael.brown@datasolve.com",
-      "id": 4
-    },
-    {
-      "name": "Sarah Davis",
+      "name": "Sarah Davi",
       "position": "HR Manager",
       "company": "PeopleFirst",
       "phone": "+1-678-901-2345",
@@ -17,12 +9,12 @@
       "id": 5
     },
     {
-      "id": 6,
-      "name": "Robert Wilson",
+      "name": "Robert Wilso",
       "position": "UX Designer",
       "company": "DesignPro",
       "phone": "+1-789-012-3456",
-      "email": "robert.wilson@designpro.com"
+      "email": "robert.wilson@designpro.com",
+      "id": 6
     },
     {
       "id": 7,
@@ -127,30 +119,6 @@
       "company": "DataGuard",
       "phone": "+1-012-345-6780",
       "email": "isabella.wright@dataguard.com"
-    },
-    {
-      "name": "Merve Uçar",
-      "position": "wqsa",
-      "company": "ews",
-      "phone": "6971586218",
-      "email": "mucar2326@gmail.com",
-      "id": 1733907337351
-    },
-    {
-      "name": "Merve Uçar",
-      "position": "",
-      "company": "",
-      "phone": "6971586218",
-      "email": "mucar2326@gmail.com",
-      "id": 1733907489856
-    },
-    {
-      "name": "Merve Uçar",
-      "position": "",
-      "company": "",
-      "phone": "6971586218",
-      "email": "mucar2326@gmail.com",
-      "id": 1733907489857
     }
   ]
 }

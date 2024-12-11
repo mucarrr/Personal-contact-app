@@ -14,17 +14,17 @@ function App() {
   const [editItem, setEditItem ] = useState(null);
   
  useEffect(()=>{
-  axios.get("/contacts").then((res)=> setContacts(res.data));
+  axios.get("/contacts").then((res)=> {console.log("contacts:", res.data);
+   setContacts(res.data);})
  },[]);
+
  const handleSubmit = (event) => {
-   
    event.preventDefault();
-   
    const text = event.target.search.value;
    const params = {
     q: text,
    };
-    axios.get("/contacts", {params}).then((res)=>setContacts(res.data));
+    axios.get("/contacts/", {params}).then((res)=>setContacts(res.data));
  }
 
  const handleDelete =(id)=>{
@@ -33,14 +33,14 @@ function App() {
     axios.delete(`/contacts/${id}`).then(()=>{
       const updated = contacts.filter((contact)=>contact.id !== id)
       setContacts(updated);
-    }).catch((err)=>alert(`Error: ${err}`));
-    
+    })
+    .catch(console.log(err)
+    );
   }
  }
- const handleEdit =(contact)=>{
+ const handleEdit =(contact)=>
    setEditItem(contact);
-   
- }
+ 
  
 return(
   <div className="app">
@@ -61,7 +61,24 @@ return(
     </header>
 
     <main>
-    {contacts.map((contact)=>< Card key={contact.id} contact={contact} handleDelete={handleDelete} handleEdit={handleEdit} setIsModalOpen={setIsModalOpen} />)}
+   {contacts && contacts.length > 0 ? (
+  contacts.map((contact) => (
+    contact && contact.id ? (
+      <Card
+        key={contact.id}
+        contact={contact}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+        setIsModalOpen={setIsModalOpen}
+      />
+    ) : (
+      console.warn("Invalid contact:", contact) // Hatalı veri için uyarı
+    )
+  ))
+) : (
+  <p>Kayıtlı kişi bulunamadı.</p>
+)}
+
     </main>
     
    <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setContacts={setContacts} editItem={editItem} setEditItem={setEditItem}/>
