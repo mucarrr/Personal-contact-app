@@ -50,7 +50,7 @@ function App() {
 return(
   <div className="app">
     <header>
-      <h1>Personal Contacts</h1>
+      <a href="./"><h1>Personal Contacts</h1></a>
       <div>
         <form onSubmit={handleSubmit}>
           <button type="submit"><RiSearchLine /></button>

@@ -9,12 +9,16 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        h1{
-            white-space: nowrap;
-            margin-right: 15px;
-            @media (max-width: 750px){
-                white-space: inherit;
-                line-height: 1.5;
+        a{
+            text-decoration: none;
+            margin-left: 20px;
+            h1{
+                white-space: nowrap;
+                margin-right: 15px;
+                @media (max-width: 750px){
+                    white-space: inherit;
+                    line-height: 1.5;
+                }
             }
         }
         div{
