@@ -9,7 +9,7 @@
       "id": 5
     },
     {
-      "name": "Robert Wilso",
+      "name": "Robert Wilson",
       "position": "UX Designer",
       "company": "DesignPro",
       "phone": "+1-789-012-3456",
@@ -25,20 +25,12 @@
       "email": "laura.taylor@bizops.com"
     },
     {
-      "id": 8,
       "name": "Kevin Martinez",
       "position": "Cloud Architect",
       "company": "Cloudify",
       "phone": "+1-901-234-5678",
-      "email": "kevin.martinez@cloudify.com"
-    },
-    {
-      "id": 9,
-      "name": "Megan Lewis",
-      "position": "DevOps Engineer",
-      "company": "DevStream",
-      "phone": "+1-012-345-6789",
-      "email": "megan.lewis@devstream.com"
+      "email": "kevin.martinez@cloudify.com",
+      "id": 8
     },
     {
       "id": 10,
@@ -50,7 +42,7 @@
     },
     {
       "id": 11,
-      "name": "Patricia Lee",
+      "name": "Patricia Leee",
       "position": "Business Analyst",
       "company": "BizInsights",
       "phone": "+1-234-567-8902",

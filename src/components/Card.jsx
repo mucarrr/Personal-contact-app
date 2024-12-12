@@ -11,8 +11,8 @@ function Card({contact, handleDelete, handleEdit, setIsModalOpen }){
     
     return(
         <div className="card">
-            <div onClick={()=> handleEdit(contact)} className="buttons">
-            <button onClick={() => setIsModalOpen(true)} className="update"><HiPencilSquare /></button>
+            <div className="buttons">
+            <button onClick={() => handleEdit(contact)} className="update"><HiPencilSquare /></button>
             <button onClick={()=> handleDelete(contact.id)} className="delete"><RiDeleteBin5Line /></button>
                
             </div>

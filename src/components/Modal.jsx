@@ -9,38 +9,40 @@ function Modal({
   editItem,
   setEditItem,
 }) {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("form gonderildi");
-
+    console.log("Form gönderildi");
+  
+    // Form verilerini al ve bir nesneye dönüştür
     const formData = new FormData(event.target);
-    console.log(formData);
     const newContact = Object.fromEntries(formData.entries());
-
-    if (!editItem) {
-      const response = axios
-        .post("/contacts", newContact)
-        .then(() => setContacts((contacts) => [...contacts, response.data]))
-        .catch((err) => {
-          console.log(`error: ${err}`);
-        });
-    } else {
-      const response = axios
-        .put(`/contacts/${editItem.id}`, newContact)
-        .then(() => {
-          setContacts((contacts) =>
-            contacts.map((contact) =>
-              contact.id === editItem.id ? response.data : contact
-            )
-          );
-        })
-        .then((err) => {
-          console.log(err);
-        });
+    console.log("Form verisi:", newContact);
+  
+    try {
+      if (!editItem) {
+        // Yeni bir kişi ekleme
+        const response = await axios.post("/contacts", newContact);
+        setContacts((contacts) => [...contacts, response.data]); // Yeni kişiyi listeye ekle
+        console.log("Yeni kişi eklendi:", response.data);
+      } else {
+        // Mevcut kişiyi düzenleme
+        const response = await axios.put(`/contacts/${editItem.id}`, newContact);
+        setContacts((contacts) =>
+          contacts.map((contact) =>
+            contact.id === editItem.id ? response.data : contact
+          )
+        ); // Güncellenen listeyi ayarla
+        console.log("Kişi güncellendi:", response.data);
+      }
+    } catch (err) {
+      console.error("İşlem sırasında hata oluştu:", err);
+    } finally {
+      // İşlemler tamamlandıktan sonra modalı kapat ve düzenleme modundan çık
+      setEditItem(null);
+      setIsModalOpen(false);
     }
-    setEditItem(null);
-    setIsModalOpen(() => false);
   };
+  
   return (
     isModalOpen && (
       <div className="modal">
@@ -79,5 +81,5 @@ function Modal({
       </div>
     )
   );
-}
+};
 export default Modal;

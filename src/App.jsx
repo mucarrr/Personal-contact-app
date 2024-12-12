@@ -27,21 +27,26 @@ function App() {
     axios.get("/contacts/", {params}).then((res)=>setContacts(res.data));
  }
 
- const handleDelete =(id)=>{
-  const res = confirm("Are you sure you want to delete?")
-  if (res){
-    axios.delete(`/contacts/${id}`).then(()=>{
-      const updated = contacts.filter((contact)=>contact.id !== id)
-      setContacts(updated);
-    })
-    .catch(console.log(err)
-    );
+ const handleDelete = async (id) => {
+  const res = confirm("Are you sure you want to delete?");
+  if (res) {
+    try {
+      await axios.delete(`/contacts/${id}`);
+      // Silinen kişiyi contacts listesinden çıkar
+      setContacts((contacts) =>
+        contacts.filter((contact) => contact.id !== id)
+      );
+      console.log(`Contact with id ${id} deleted successfully.`);
+    } catch (err) {
+      console.error(`Error deleting contact with id ${id}:`, err);
+    }
   }
+};
+
+ const handleEdit =(contact)=>{
+  setEditItem(contact);
+  setIsModalOpen(true);
  }
- const handleEdit =(contact)=>
-   setEditItem(contact);
- 
- 
 return(
   <div className="app">
     <header>
@@ -61,7 +66,7 @@ return(
     </header>
 
     <main>
-   {contacts && contacts.length > 0 ? (
+    {contacts && contacts.length > 0 ? (
   contacts.map((contact) => (
     contact && contact.id ? (
       <Card
@@ -69,7 +74,7 @@ return(
         contact={contact}
         handleDelete={handleDelete}
         handleEdit={handleEdit}
-        setIsModalOpen={setIsModalOpen}
+       
       />
     ) : (
       console.warn("Invalid contact:", contact) // Hatalı veri için uyarı
