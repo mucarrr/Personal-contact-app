@@ -32,7 +32,7 @@ function App() {
   if (res) {
     try {
       await axios.delete(`/contacts/${id}`);
-      // Silinen kişiyi contacts listesinden çıkar
+      
       setContacts((contacts) =>
         contacts.filter((contact) => contact.id !== id)
       );
@@ -77,7 +77,7 @@ return(
        
       />
     ) : (
-      console.warn("Invalid contact:", contact) // Hatalı veri için uyarı
+      console.warn("Invalid contact:", contact) 
     )
   ))
 ) : (

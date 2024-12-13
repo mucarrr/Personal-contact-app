@@ -13,31 +13,30 @@ function Modal({
     event.preventDefault();
     console.log("Form gönderildi");
   
-    // Form verilerini al ve bir nesneye dönüştür
     const formData = new FormData(event.target);
     const newContact = Object.fromEntries(formData.entries());
     console.log("Form verisi:", newContact);
   
     try {
       if (!editItem) {
-        // Yeni bir kişi ekleme
+      
         const response = await axios.post("/contacts", newContact);
-        setContacts((contacts) => [...contacts, response.data]); // Yeni kişiyi listeye ekle
+        setContacts((contacts) => [...contacts, response.data]); 
         console.log("Yeni kişi eklendi:", response.data);
       } else {
-        // Mevcut kişiyi düzenleme
+        
         const response = await axios.put(`/contacts/${editItem.id}`, newContact);
         setContacts((contacts) =>
           contacts.map((contact) =>
             contact.id === editItem.id ? response.data : contact
           )
-        ); // Güncellenen listeyi ayarla
+        ); 
         console.log("Kişi güncellendi:", response.data);
       }
     } catch (err) {
       console.error("İşlem sırasında hata oluştu:", err);
     } finally {
-      // İşlemler tamamlandıktan sonra modalı kapat ve düzenleme modundan çık
+     
       setEditItem(null);
       setIsModalOpen(false);
     }

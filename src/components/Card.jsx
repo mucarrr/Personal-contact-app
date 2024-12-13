@@ -5,11 +5,11 @@ import { IoMail } from "react-icons/io5";
 function Card({ contact, handleDelete, handleEdit, setIsModalOpen }) {
     if (!contact || !contact.name) {
       console.error("Invalid contact data:", contact);
-      return null; // Hatalı bir veri varsa, bileşeni render etmeyin
+      return null; 
     }
   
-    // İsim ve soyadı ayrıştırma
-    const [firstName = "", surname = ""] = contact.name.split(" "); // Varsayılan değerlerle güvenli hale getir
+    
+    const [firstName = "", surname = ""] = contact.name.split(" "); 
   
     return (
       <div className="card">
